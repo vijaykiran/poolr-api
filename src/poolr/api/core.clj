@@ -5,12 +5,25 @@
    ring.adapter.jetty)
   (:require  [poolr.api.games :as games]))
 
+(defn unauthorized
+  "Send unauthorized to client"
+  [req]
+  {:status 401})
 
+
+(defn wrap-security
+  "Security wrapper for the modification actions"
+  [app]
+  (fn [req]
+    (if (= (:request-method req) :get)
+      (app req)
+      (unauthorized req))))
 
 ;; Routes definition
 (def routes
   (app
    (wrap-params)
+   (wrap-security)
    ["games"]  {:get games/list-games :post games/new-game}
    ["games" id] {:get (delegate games/get-game id)
                  :put (delegate games/update-game id)
