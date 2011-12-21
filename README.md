@@ -1,10 +1,14 @@
-# poolr
+# poolr-api
 
 Lunatech Pool Ladder API.
 
 ## Usage
 
 Don't.
+
+## Docs
+
+Marginalia http://vijaykiran.github.com/poolr-api/
 
 ## License
 
