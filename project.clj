@@ -3,5 +3,5 @@
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [ring "1.0.0"]
                  [net.cgrand/moustache "1.1.0"]
-                 [org.clojure/java.jdbc "0.1.1"]
+                 [korma "0.2.1"]
                  [postgresql/postgresql "8.4-702.jdbc4"]])
