@@ -1,9 +1,10 @@
 (ns lobos.config
+  "lobos configuration"
   (:use lobos.connectivity)
   (import java.net.URI))
 
-(defn url-to-db-spec
-  "Creates a dbspec map from URI String"
+(defn- url-to-db-spec
+  "Creates a dbspec map from String (url)"
   [db-url]
   (let [uri (URI. db-url)
         port (.getPort uri)
@@ -18,5 +19,5 @@
      :user user
      :password password}))
 
+;;; Shared database url on heroku is available via the env config variable "DATABASE_URL"
 (def db (url-to-db-spec (System/getenv "DATABASE_URL")))
-
