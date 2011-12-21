@@ -2,9 +2,10 @@
   (:use
    net.cgrand.moustache
    ring.middleware.params
-   ring.adapter.jetty)
+ ring.adapter.jetty)
   (:require  [poolr.api.games :as games]))
 
+;;; TODO Fix this to send response as JSON
 (defn unauthorized
   "Send unauthorized to client"
   [req]
