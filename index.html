@@ -3123,7 +3123,7 @@ $(document).ready(function() {
 
 })
 </script><title>poolr-api -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name">poolr-api</h1><h2 class="project-version">0.0.1-SNAPSHOT</h2><br /><p>Lunatech Pool Ladder API</p>
-</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.3.0</td></tr><tr><td class="dep-name">ring</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">net.cgrand/moustache</td><td class="dotted"><hr /></td><td class="dep-version">1.1.0</td></tr><tr><td class="dep-name">lobos</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0-SNAPSHOT</td></tr><tr><td class="dep-name">korma</td><td class="dotted"><hr /></td><td class="dep-version">0.2.1</td></tr><tr><td class="dep-name">postgresql</td><td class="dotted"><hr /></td><td class="dep-version">9.1-901.jdbc4</td></tr></table></div><div class="dependencies"><h3>dev dependencies</h3><table><tr><td class="dep-name">lein-marginalia</td><td class="dotted"><hr /></td><td class="dep-version">0.7.0-SNAPSHOT</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#lobos.config">lobos.config</a></li><li><a href="#lobos.helpers">lobos.helpers</a></li><li><a href="#lobos.migrations">lobos.migrations</a></li><li><a href="#poolr.api.core">poolr.api.core</a></li><li><a href="#poolr.api.games">poolr.api.games</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lobos.config" name="lobos.config"><h1 class="project-name">lobos.config</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>lobos configuration</p>
+</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.3.0</td></tr><tr><td class="dep-name">ring</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">net.cgrand/moustache</td><td class="dotted"><hr /></td><td class="dep-version">1.1.0</td></tr><tr><td class="dep-name">lobos</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0-SNAPSHOT</td></tr><tr><td class="dep-name">korma</td><td class="dotted"><hr /></td><td class="dep-version">0.2.1</td></tr><tr><td class="dep-name">postgresql</td><td class="dotted"><hr /></td><td class="dep-version">9.1-901.jdbc4</td></tr><tr><td class="dep-name">clj-yaml</td><td class="dotted"><hr /></td><td class="dep-version">0.3.1</td></tr></table></div><div class="dependencies"><h3>dev dependencies</h3><table><tr><td class="dep-name">lein-marginalia</td><td class="dotted"><hr /></td><td class="dep-version">0.7.0-SNAPSHOT</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#lobos.config">lobos.config</a></li><li><a href="#lobos.helpers">lobos.helpers</a></li><li><a href="#lobos.migrations">lobos.migrations</a></li><li><a href="#poolr.api.core">poolr.api.core</a></li><li><a href="#poolr.api.games">poolr.api.games</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lobos.config" name="lobos.config"><h1 class="project-name">lobos.config</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>lobos configuration</p>
 </td><td class="codes"><pre class="brush: clojure">(ns lobos.config
   (:use lobos.connectivity)
   (import java.net.URI))</pre></td></tr><tr><td class="docs"><p>Creates a dbspec map from String (url)</p>
@@ -3152,8 +3152,9 @@ $(document).ready(function() {
   [table]
   (-&gt; table
       (timestamp :updated_on)
-      (timestamp :created_on (default (now)))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn refer-to [table ptable]
+      (timestamp :created_on (default (now)))))</pre></td></tr><tr><td class="docs"><p>Add a foreign key from table to ptable</p>
+</td><td class="codes"><pre class="brush: clojure">(defn refer-to
+  [table ptable]
   (let [cname (-&gt; (-&gt;&gt; ptable name butlast (apply str))
                   (str &quot;_id&quot;)
                   keyword)]
@@ -3172,14 +3173,30 @@ $(document).ready(function() {
                schema
                config
                helpers)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defmigration add-users-table
+</td><td class="codes"><pre class="brush: clojure">(defmigration add-players-table
   (up [] (create
-          (tbl :users
+          (tbl :players
                (varchar :name 100 :unique)
                (varchar :email 1024 :unique)
-               (varchar :twitter_id 140)
+               (varchar :twitter 140 :unique)
                (check :name (&gt; (length :name) 1)))))
-  (down [] (drop (table :users))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#poolr.api.core" name="poolr.api.core"><h1 class="project-name">poolr.api.core</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+  (down [] (drop (table :players))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defmigration add-games-table
+  (up [] (create
+          (tbl :games
+               (time :game_date)
+               (integer :winner_score :not-null)
+               (integer :loser_score :not-null)
+               (integer :winner [:refer :players :id] :not-null)
+               (integer :loser [:refer :players :id] :not-null))))
+  (down [] (drop (table :games))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defmigration add-history-table
+  (up [] (create
+          (tbl :ranks
+               (integer :player_id [:refer :players :id] :not-null)
+               (integer :rank)
+               (integer :game_id [:refer :games :id] :not-null))))
+  (down [] (drop (table :ranks))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#poolr.api.core" name="poolr.api.core"><h1 class="project-name">poolr.api.core</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns poolr.api.core
   (:use
    net.cgrand.moustache
