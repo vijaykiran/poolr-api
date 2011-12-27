@@ -15,7 +15,9 @@
       (timestamp :updated_on)
       (timestamp :created_on (default (now)))))
 
-(defn refer-to [table ptable]
+(defn refer-to
+  "Add a foreign key from table to ptable"
+  [table ptable]
   (let [cname (-> (->> ptable name butlast (apply str))
                   (str "_id")
                   keyword)]

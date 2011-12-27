@@ -8,11 +8,29 @@
                config
                helpers)))
 
-(defmigration add-users-table
+(defmigration add-players-table
   (up [] (create
-          (tbl :users
+          (tbl :players
                (varchar :name 100 :unique)
                (varchar :email 1024 :unique)
-               (varchar :twitter_id 140)
+               (varchar :twitter 140 :unique)
                (check :name (> (length :name) 1)))))
-  (down [] (drop (table :users))))
+  (down [] (drop (table :players))))
+
+(defmigration add-games-table
+  (up [] (create
+          (tbl :games
+               (time :game_date)
+               (integer :winner_score :not-null)
+               (integer :loser_score :not-null)
+               (integer :winner [:refer :players :id] :not-null)
+               (integer :loser [:refer :players :id] :not-null))))
+  (down [] (drop (table :games))))
+
+(defmigration add-history-table
+  (up [] (create
+          (tbl :ranks
+               (integer :player_id [:refer :players :id] :not-null)
+               (integer :rank)
+               (integer :game_id [:refer :games :id] :not-null))))
+  (down [] (drop (table :ranks))))
