@@ -1,3 +1,18 @@
-Player:
+players:
+  VK:
+    name: Vijay Kiran
+    email: vijay@lunatech.com
+    twitter: vijaykiran
+    id: 1
 
-name: Vijay
+  PH:
+    name: Peter Hilton
+    email: pedro@lunatech.com
+    twitter: PeterHilton
+    id: 2
+
+  BS:
+    name: Bart Schuller
+    email: bart@lunatech.com
+    twitter: BartSchuller
+    id: 3
