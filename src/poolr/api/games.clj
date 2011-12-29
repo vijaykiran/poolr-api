@@ -1,4 +1,5 @@
-(ns poolr.api.games)
+(ns poolr.api.games
+  "Games handler functions")
 
 (defn list-games [req]
   (println "list games"))
