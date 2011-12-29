@@ -1,5 +1,5 @@
-(ns poolr.api.db
-  "Poolr Database access functions and vars"
+(ns poolr.api.model
+  "Poolr models and database access functions and vars"
   (:use korma.db
         korma.core)
   (:require [poolr.utils :as utils]))

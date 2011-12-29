@@ -3,8 +3,7 @@
    net.cgrand.moustache
    ring.middleware.params
    ring.adapter.jetty)
-  (:require  [poolr.api.games :as games]
-             [poolr.api.players :as players]))
+  (:require  [poolr.api.controller :as controller]))
 
 ;;; TODO Fix this to send response as JSON
 (defn unauthorized
@@ -27,17 +26,16 @@
    (wrap-params)
    (wrap-security)
    ;; TODO - should be refactored into a function generating the corresponding maps
-   ["games"]  {:get games/list-games
-               :post games/new-game}
-
-   ["games" id] {:get (delegate games/get-game id)
-                 :put (delegate games/update-game id)
-                 :delete (delegate games/delete-game id)}
-   ["players"] {:get players/list-players
-                :post players/new-player}
-   ["players" id] {:get (delegate players/get-player id)
-                 :put (delegate players/update-player id)
-                 :delete (delegate players/delete-player id)}))
+   ["games"]  {:get controller/list-games
+               :post controller/new-game}
+   ["games" id] {:get (delegate controller/get-game id)
+                 :put (delegate controller/update-game id)
+                 :delete (delegate controller/delete-game id)}
+   ["controller"] {:get controller/list-players
+                :post controller/new-player}
+   ["controller" id] {:get (delegate controller/get-player id)
+                 :put (delegate controller/update-player id)
+                 :delete (delegate controller/delete-player id)}))
 
 ;;; start function for starting jetty
 (defn start [port]
