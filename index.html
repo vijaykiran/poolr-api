@@ -3123,7 +3123,7 @@ $(document).ready(function() {
 
 })
 </script><title>poolr-api -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name">poolr-api</h1><h2 class="project-version">0.0.1-SNAPSHOT</h2><br /><p>Lunatech Pool Ladder API</p>
-</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.3.0</td></tr><tr><td class="dep-name">ring</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">net.cgrand/moustache</td><td class="dotted"><hr /></td><td class="dep-version">1.1.0</td></tr><tr><td class="dep-name">lobos</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0-SNAPSHOT</td></tr><tr><td class="dep-name">korma</td><td class="dotted"><hr /></td><td class="dep-version">0.2.1</td></tr><tr><td class="dep-name">postgresql</td><td class="dotted"><hr /></td><td class="dep-version">9.1-901.jdbc4</td></tr><tr><td class="dep-name">clj-yaml</td><td class="dotted"><hr /></td><td class="dep-version">0.3.1</td></tr></table></div><div class="dependencies"><h3>dev dependencies</h3><table><tr><td class="dep-name">lein-marginalia</td><td class="dotted"><hr /></td><td class="dep-version">0.7.0-SNAPSHOT</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#lobos.config">lobos.config</a></li><li><a href="#lobos.helpers">lobos.helpers</a></li><li><a href="#lobos.migrations">lobos.migrations</a></li><li><a href="#poolr.api.core">poolr.api.core</a></li><li><a href="#poolr.api.db">poolr.api.db</a></li><li><a href="#poolr.api.games">poolr.api.games</a></li><li><a href="#poolr.utils">poolr.utils</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lobos.config" name="lobos.config"><h1 class="project-name">lobos.config</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>lobos configuration</p>
+</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.3.0</td></tr><tr><td class="dep-name">ring</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0</td></tr><tr><td class="dep-name">net.cgrand/moustache</td><td class="dotted"><hr /></td><td class="dep-version">1.1.0</td></tr><tr><td class="dep-name">lobos</td><td class="dotted"><hr /></td><td class="dep-version">1.0.0-SNAPSHOT</td></tr><tr><td class="dep-name">korma</td><td class="dotted"><hr /></td><td class="dep-version">0.2.1</td></tr><tr><td class="dep-name">postgresql</td><td class="dotted"><hr /></td><td class="dep-version">9.1-901.jdbc4</td></tr><tr><td class="dep-name">clj-yaml</td><td class="dotted"><hr /></td><td class="dep-version">0.3.1</td></tr></table></div><div class="dependencies"><h3>dev dependencies</h3><table><tr><td class="dep-name">lein-marginalia</td><td class="dotted"><hr /></td><td class="dep-version">0.7.0-SNAPSHOT</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#lobos.config">lobos.config</a></li><li><a href="#lobos.helpers">lobos.helpers</a></li><li><a href="#lobos.migrations">lobos.migrations</a></li><li><a href="#poolr.api.controller">poolr.api.controller</a></li><li><a href="#poolr.api.core">poolr.api.core</a></li><li><a href="#poolr.api.model">poolr.api.model</a></li><li><a href="#poolr.utils">poolr.utils</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lobos.config" name="lobos.config"><h1 class="project-name">lobos.config</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>lobos configuration</p>
 </td><td class="codes"><pre class="brush: clojure">(ns lobos.config
   (:require [poolr.utils :as pu]))</pre></td></tr><tr><td class="docs"><p>Shared database url on heroku is available via the env config variable "DATABASE_URL"</p>
 </td><td class="codes"><pre class="brush: clojure">(def db (pu/url-to-db-spec (System/getenv &quot;DATABASE_URL&quot;)))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lobos.helpers" name="lobos.helpers"><h1 class="project-name">lobos.helpers</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>lobos helpers</p>
@@ -3181,13 +3181,43 @@ $(document).ready(function() {
                (integer :player_id [:refer :players :id] :not-null)
                (integer :rank)
                (integer :game_id [:refer :games :id] :not-null))))
-  (down [] (drop (table :ranks))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#poolr.api.core" name="poolr.api.core"><h1 class="project-name">poolr.api.core</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+  (down [] (drop (table :ranks))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#poolr.api.controller" name="poolr.api.controller"><h1 class="project-name">poolr.api.controller</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(ns poolr.api.controller
+  &quot;Games handler functions&quot;)</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn list-games [req]
+  (println &quot;list games&quot;))</pre></td></tr><tr><td class="docs"><p>Creates new game</p>
+</td><td class="codes"><pre class="brush: clojure">(defn new-game
+  [req]
+  (println &quot;new-game&quot;))</pre></td></tr><tr><td class="docs"><p>Get the game details</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-game
+  [req id]
+  (println (str &quot;get game details&quot; id)))</pre></td></tr><tr><td class="docs"><p>Update the game with the details</p>
+</td><td class="codes"><pre class="brush: clojure">(defn update-game
+  [req id]
+  (println (str &quot;Updating game details&quot; id)))</pre></td></tr><tr><td class="docs"><p>Deletes a game</p>
+</td><td class="codes"><pre class="brush: clojure">(defn delete-game
+  [req id]
+  (println (str &quot;deleting game&quot; id)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn list-players [req]
+  (println &quot;list players&quot;))</pre></td></tr><tr><td class="docs"><p>Creates new player</p>
+</td><td class="codes"><pre class="brush: clojure">(defn new-player
+  [req]
+  (println &quot;new-player&quot;))</pre></td></tr><tr><td class="docs"><p>Get the player details</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get-player
+  [req id]
+  (println (str &quot;get player details&quot; id)))</pre></td></tr><tr><td class="docs"><p>Update the player with the details</p>
+</td><td class="codes"><pre class="brush: clojure">(defn update-player
+  [req id]
+  (println (str &quot;Updating player details&quot; id)))</pre></td></tr><tr><td class="docs"><p>Deletes a player</p>
+</td><td class="codes"><pre class="brush: clojure">(defn delete-player
+  [req id]
+  (println (str &quot;deleting player&quot; id)))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#poolr.api.core" name="poolr.api.core"><h1 class="project-name">poolr.api.core</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns poolr.api.core
   (:use
    net.cgrand.moustache
    ring.middleware.params
- ring.adapter.jetty)
-  (:require  [poolr.api.games :as games]))</pre></td></tr><tr><td class="docs"><p>Send unauthorized to client</p>
+   ring.adapter.jetty)
+  (:require  [poolr.api.controller :as controller]))</pre></td></tr><tr><td class="docs"><p>Send unauthorized to client</p>
 
 <p>TODO Fix this to send response as JSON</p>
 </td><td class="codes"><pre class="brush: clojure">(defn unauthorized
@@ -3203,38 +3233,30 @@ $(document).ready(function() {
   (app
    (wrap-params)
    (wrap-security)
-   [&quot;games&quot;]  {:get games/list-games :post games/new-game}
-   [&quot;games&quot; id] {:get (delegate games/get-game id)
-                 :put (delegate games/update-game id)
-                 :delete (delegate games/delete-game id)}))</pre></td></tr><tr><td class="docs"><p>start function for starting jetty</p>
+   ;; TODO - should be refactored into a function generating the corresponding maps
+   [&quot;games&quot;]  {:get controller/list-games
+               :post controller/new-game}
+   [&quot;games&quot; id] {:get (delegate controller/get-game id)
+                 :put (delegate controller/update-game id)
+                 :delete (delegate controller/delete-game id)}
+   [&quot;players&quot;] {:get controller/list-players
+                :post controller/new-player}
+   [&quot;players&quot; id] {:get (delegate controller/get-player id)
+                 :put (delegate controller/update-player id)
+                 :delete (delegate controller/delete-player id)}))</pre></td></tr><tr><td class="docs"><p>start function for starting jetty</p>
 </td><td class="codes"><pre class="brush: clojure">(defn start [port]
   (run-jetty #'routes {:port (or port 8080) :join? false}))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn -main []
   (let [port (Integer/parseInt (System/getenv &quot;PORT&quot;))]
-    (start port)))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#poolr.api.db" name="poolr.api.db"><h1 class="project-name">poolr.api.db</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>Poolr Database access functions and vars</p>
-</td><td class="codes"><pre class="brush: clojure">(ns poolr.api.db
+    (start port)))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#poolr.api.model" name="poolr.api.model"><h1 class="project-name">poolr.api.model</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>Poolr models and database access functions and vars</p>
+</td><td class="codes"><pre class="brush: clojure">(ns poolr.api.model
   (:use korma.db
         korma.core)
   (:require [poolr.utils :as utils]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defdb prod-db (utils/url-to-db-spec (System/getenv &quot;DATABASE_URL&quot;)))</pre></td></tr><tr><td class="docs"><p>Entity definitions</p>
 </td><td class="codes"><pre class="brush: clojure">(defentity players)
 (defentity games)
-(defentity ranks)</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#poolr.api.games" name="poolr.api.games"><h1 class="project-name">poolr.api.games</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns poolr.api.games)</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn list-games [req]
-  (println &quot;list games&quot;))</pre></td></tr><tr><td class="docs"><p>Creates new game</p>
-</td><td class="codes"><pre class="brush: clojure">(defn new-game
-  [req]
-  (println &quot;new-game&quot;))</pre></td></tr><tr><td class="docs"><p>Get the game details</p>
-</td><td class="codes"><pre class="brush: clojure">(defn get-game
-  [req id]
-  (println (str &quot;get game details&quot; id)))</pre></td></tr><tr><td class="docs"><p>Update the game with the details</p>
-</td><td class="codes"><pre class="brush: clojure">(defn update-game
-  [req id]
-  (println (str &quot;Updating game details&quot; id)))</pre></td></tr><tr><td class="docs"><p>Deletes a game</p>
-</td><td class="codes"><pre class="brush: clojure">(defn delete-game
-  [req id]
-  (println (str &quot;deleting game&quot; id)))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#poolr.utils" name="poolr.utils"><h1 class="project-name">poolr.utils</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>Some useful utility functions</p>
+(defentity ranks)</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#poolr.utils" name="poolr.utils"><h1 class="project-name">poolr.utils</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>Some useful utility functions</p>
 </td><td class="codes"><pre class="brush: clojure">(ns poolr.utils
   (:import java.net.URI))</pre></td></tr><tr><td class="docs"><p>Creates a dbspec map from String (url)</p>
 </td><td class="codes"><pre class="brush: clojure">(defn url-to-db-spec
@@ -3250,5 +3272,5 @@ $(document).ready(function() {
                    (if (= -1 port) &quot;&quot; (str &quot;:&quot; port))
                    path)
      :user user
-     :password password}))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr></table><div class="footer">Generated by <a href="https://github.com/fogus/marginalia">Marginalia</a>.&nbsp;&nbsp;Syntax highlighting provided by Alex Gorbatchev's <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a><div id="floating-toc"><ul><li class="floating-toc-li" id="floating-toc_lobos.config">lobos.config</li><li class="floating-toc-li" id="floating-toc_lobos.helpers">lobos.helpers</li><li class="floating-toc-li" id="floating-toc_lobos.migrations">lobos.migrations</li><li class="floating-toc-li" id="floating-toc_poolr.api.core">poolr.api.core</li><li class="floating-toc-li" id="floating-toc_poolr.api.db">poolr.api.db</li><li class="floating-toc-li" id="floating-toc_poolr.api.games">poolr.api.games</li><li class="floating-toc-li" id="floating-toc_poolr.utils">poolr.utils</li></ul></div></div><script type="text/javascript">SyntaxHighlighter.defaults['gutter'] = false;
+     :password password}))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr></table><div class="footer">Generated by <a href="https://github.com/fogus/marginalia">Marginalia</a>.&nbsp;&nbsp;Syntax highlighting provided by Alex Gorbatchev's <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a><div id="floating-toc"><ul><li class="floating-toc-li" id="floating-toc_lobos.config">lobos.config</li><li class="floating-toc-li" id="floating-toc_lobos.helpers">lobos.helpers</li><li class="floating-toc-li" id="floating-toc_lobos.migrations">lobos.migrations</li><li class="floating-toc-li" id="floating-toc_poolr.api.controller">poolr.api.controller</li><li class="floating-toc-li" id="floating-toc_poolr.api.core">poolr.api.core</li><li class="floating-toc-li" id="floating-toc_poolr.api.model">poolr.api.model</li><li class="floating-toc-li" id="floating-toc_poolr.utils">poolr.utils</li></ul></div></div><script type="text/javascript">SyntaxHighlighter.defaults['gutter'] = false;
        SyntaxHighlighter.all()</script></body></html>
