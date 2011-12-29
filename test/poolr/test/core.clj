@@ -1,5 +1,4 @@
 (ns poolr.test.core
-  (:use [poolr.core])
   (:use [clojure.test]))
 
 (deftest replace-me ;; FIXME: write
