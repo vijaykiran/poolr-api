@@ -31,9 +31,9 @@
    ["games" id] {:get (delegate controller/get-game id)
                  :put (delegate controller/update-game id)
                  :delete (delegate controller/delete-game id)}
-   ["controller"] {:get controller/list-players
+   ["players"] {:get controller/list-players
                 :post controller/new-player}
-   ["controller" id] {:get (delegate controller/get-player id)
+   ["players" id] {:get (delegate controller/get-player id)
                  :put (delegate controller/update-player id)
                  :delete (delegate controller/delete-player id)}))
 
