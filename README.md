@@ -1,5 +1,7 @@
 # poolr-api
 
+[![Build Status](https://secure.travis-ci.org/vijaykiran/poolr-api.png)](http://travis-ci.org/vijaykiran/poolr-api)
+
 Lunatech Pool Ladder API.
 
 ## Usage
