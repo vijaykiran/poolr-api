@@ -11,7 +11,6 @@
   [req]
   {:status 401})
 
-
 (defn wrap-security
   "Security wrapper for the modification actions"
   [app]
@@ -24,7 +23,7 @@
 (def routes
   (app
    (wrap-params)
-   (wrap-security)
+;;;   (wrap-security)
    ;; TODO - should be refactored into a function generating the corresponding maps
    ["games"]  {:get controller/list-games
                :post controller/new-game}

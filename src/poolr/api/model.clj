@@ -11,3 +11,8 @@
 (defentity players)
 (defentity games)
 (defentity ranks)
+
+(defn players-list
+  "list of players"
+  []
+  (select players))

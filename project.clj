@@ -6,5 +6,6 @@
                  [lobos "1.0.0-SNAPSHOT"]
                  [korma "0.2.1"]
                  [postgresql "9.1-901.jdbc4"]
-                 [clj-yaml "0.3.1"]]
+                 [clj-yaml "0.3.1"]
+                 [org.clojure/data.json "0.1.2"]]
   :dev-dependencies [[lein-marginalia "0.7.0-SNAPSHOT"]])
